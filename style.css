@@ -118,19 +118,15 @@ h1 {
     red
   );
   margin: 15px 0 5px 0;
+  overflow: hidden;
 }
-.aqIndex::before{
-  content:url('/aqiIcon.png');
-  position: absolute;
-  object-fit: contain;
-  color: #fff;
+.aqIndex img {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 50%;
-  transform: translateY(-60%);
-  left: 20%;
-  border-radius: 50%;
+}
+#aq_level {
+  position: absolute;
+  left: -10%;
+  transition: all 1s linear;
 }
 .row1 {
   background-color: #1118;
@@ -179,30 +175,56 @@ h1 {
   column-gap: 15px;
   row-gap: 15px;
 }
-.para3{
+.para3 {
   font-size: 10px;
 }
 .innerRow1 {
   width: 80%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns:repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
   margin-bottom: 15px;
 }
-.mapContent{
+.mapContent {
   width: 80%;
   margin: 0 auto;
   margin-top: 15px;
-  padding-bottom: 50px ;
+  padding-bottom: 50px;
 }
-iframe{
+iframe {
   width: 100%;
   height: 250px;
   border-radius: 10px;
 }
-.location{
+.location {
   display: flex;
   justify-content: space-evenly;
   text-align: center;
+}
+.location {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+.row2 img {
+  width: 50px;
+}
+.row2 {
+  background-color: #1118;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+}
+.weather {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.para4 {
+  font-size: 14px;
+  color: #fff;
 }
