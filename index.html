@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <p class="logoPara">Weather</p>
+      <div class="input">
+        <input type="text" id="weatherInput" placeholder="Enter city name"/>
+        <button id="weatherBtn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="row">
+      <h1 id="city_name">N/A</h1>
+      <div class="innerRow1">
+        <div class="row1">
+          <i class="fa-solid fa-temperature-low"></i>
+          <p class="para1">Temperature</p>
+          <p class="para2">
+            <span id="temp">N/A</span> °</p>
+        </div>
+        <div class="row1">
+          <i class="fa-solid fa-temperature-arrow-up"></i>
+          <p class="para1">Temperature (Max.)</p>
+          <p class="para2">
+            <span id="temp_max">N/A</span> °</p>
+        </div>
+        <div class="row1">
+          <i class="fa-solid fa-temperature-arrow-down"></i>
+          <p class="para1">Temperature (Min.)</p>
+          <p class="para2">
+            <span id="temp_min">N/A</span> °</p>
+        </div>
+      </div>
+      <div class="innerRow">
+        <div class="col1">
+          <div class="aqiCont">
+            <div class="aqiHeading">
+              <p class="para1">Air quality Index level</p>
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+            <p class="para2">
+             <span id="aqi_Condition">N/A</span>, Level <span id="aqi_Index">N/A</span>
+            </p>
+            <div class="aqIndex" id="aq_level">
+              <img src="/aqiIcon.png" alt="">
+            </div>
+          </div>
+          <div class="sunTime">
+            <div class="row1">
+              <div class="icon">
+                <i class="fa-solid fa-arrow-up"></i>
+                <i class="fa-solid fa-sun"></i>
+              </div>
+              <p class="para1">Sunrise</p>
+              <p class="para2" id="sunrise">N/A</p>
+            </div>
+            <div class="row1">
+              <div class="icon">
+                <i class="fa-solid fa-arrow-down"></i>
+                <i class="fa-solid fa-sun"></i>
+              </div>
+              <p class="para1">Sunset</p>
+              <p class="para2" id="sunset">N/A</p>
+            </div>
+          </div>
+        </div>
+        <div class="col2">
+          <div class="row1">
+            <i class="fa-solid fa-temperature-three-quarters"></i>
+            <p class="para1">Feels like</p>
+            <p class="para2">
+              <span id="temp_feel">N/A</span> °</p>
+          </div>
+          <div class="row1">
+            <i class="fa-solid fa-droplet"></i>
+            <p class="para1">Humidity</p>
+            <p class="para2">
+              <span id="humdity">N/A</span> <span class="para3">%</span></p>
+          </div>
+          <div class="row1">
+            <i class="fa-solid fa-wind"></i>
+            <p class="para1">Wind</p>
+            <p class="para2">
+              <span id="wind">N/A</span> <span class="para3">km/h</span></p>
+          </div>
+          <div class="row1">
+            <i class="fa-solid fa-arrow-down-wide-short"></i>
+            <p class="para1">Air pressure</p>
+            <p class="para2">
+              <span id="pressure">N/A</span> <span class="para3">hPa</span></p>
+          </div>
+          <div class="row1">
+            <i class="fa-solid fa-cloud-sun"></i>
+            <p class="para1">Cloudiness</p>
+            <p class="para2">
+              <span id="Cloudiness">N/A</span> <span class="para3">%</span></p>
+          </div>
+          <div class="row1">
+            <i class="fa-solid fa-eye"></i>
+            <p class="para1">Visiblity</p>
+            <p class="para2"><span id="Visiblity">N/A</span> <span class="para3">km</span></p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="mapContent">
+        <div class="row1">
+          <i class="fa-solid fa-location-arrow"></i>
+          <div class="location">
+            <div class="lat">
+              <p class="para1">Visiblity</p>
+              <p class="para2">14</p>
+            </div>
+            <div class="long">
+              <p class="para1">Visiblity</p>
+            <p class="para2">14</p>
+            </div>
+          </div>
+          
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.11232798362!2d77.20498721410027!3d28.62892044504589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd37b741d057%3A0xcdee88e47393c3f1!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi%20110001!5e0!3m2!1sen!2sin!4v1703142109148!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div> -->
+    </div>
+
+    <script src="main.js"></script>
+    <script
+      src="https://kit.fontawesome.com/9ba24a9f81.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
