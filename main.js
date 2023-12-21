@@ -14,7 +14,7 @@ function unixToTime(unixTimestamp) {
   });
 }
 
-// Function to convert temperature from Kelvin to Celsius
+// Function to convert temperature from m/s to km/h
 function metretokilometer(meter) {
   return (meter * 3.6).toFixed(1);
 }
@@ -31,10 +31,13 @@ const wind = document.getElementById("wind");
 const pressure = document.getElementById("pressure");
 const Cloudiness = document.getElementById("Cloudiness");
 const Visiblity = document.getElementById("Visiblity");
+const weather_des = document.getElementById("weather_des");
+const weather_img = document.querySelector(".weather_image img");
 
 const weatherBtn = document.getElementById("weatherBtn");
 weatherBtn.addEventListener("click", () => {
   const weatherInput = document.getElementById("weatherInput").value;
+  const weatherInput1 = document.getElementById("weatherInput");
   if (weatherInput == "") {
     city_name.innerHTML = "Enter city name";
   } else {
@@ -43,7 +46,7 @@ weatherBtn.addEventListener("click", () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        //   console.log(data);
+        console.log(data);
         city_name.innerHTML = data.name;
         temp.innerHTML = kelvinToCelsius(data.main.temp);
         temp_max.innerHTML = kelvinToCelsius(data.main.temp_max);
@@ -56,6 +59,8 @@ weatherBtn.addEventListener("click", () => {
         Visiblity.innerHTML = data.visibility / 1000;
         sunrise.innerHTML = unixToTime(data.sys.sunrise);
         sunset.innerHTML = unixToTime(data.sys.sunset);
+        weather_des.innerHTML = data.weather[0].main;
+        weather_img.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
 
         const lat = data.coord.lat;
         const lon = data.coord.lon;
@@ -86,6 +91,7 @@ weatherBtn.addEventListener("click", () => {
               aq_level.style.left = "90%";
             }
           });
+        weatherInput1.value = "";
       });
   }
 });
