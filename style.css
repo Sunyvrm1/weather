@@ -64,7 +64,7 @@ header {
   /* background-image: linear-gradient(to top, #333, #111); */
   /* background: #333; */
   height: auto;
-  padding-bottom: 6vh;
+  padding-bottom: 8vh;
 }
 .innerRow {
   width: 80%;
@@ -240,4 +240,30 @@ iframe {
 .para4 {
   font-size: 14px;
   color: #fff;
+}
+
+@media (max-width: 1279px) {
+  .innerRow1 {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+  .innerRow {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 959px) {
+  .innerRow1 {
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 15px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .innerRow {
+    width: 100%;
+    padding: 0 20px;
+    grid-template-columns: 1fr;
+  }
 }
