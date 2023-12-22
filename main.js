@@ -67,7 +67,7 @@ weatherBtn.addEventListener("click", () => {
         const aqi_Condition = document.getElementById("aqi_Condition");
         const aq_level = document.getElementById("aq_level");
         fetch(
-          `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=beea3435003dac5511b106b3cd2c6350`
+          `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=beea3435003dac5511b106b3cd2c6350`
         )
           .then((res) => res.json())
           .then((data1) => {
