@@ -134,6 +134,7 @@ weatherBtn.addEventListener("click", () => {
           body.style.backgroundImage = 'url("/smoke.jpg")';
         }
         body.style.backgroundSize = "cover";
+        body.style.backgroundAttachment = "fixed";
 
         const lat = data.coord.lat;
         const lon = data.coord.lon;
