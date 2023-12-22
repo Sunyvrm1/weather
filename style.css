@@ -270,7 +270,7 @@ iframe {
 }
 
 @media (max-width: 600px) {
-  .input {
-    width: 40%;
+  #weatherInput {
+    width: 150px;
   }
 }
