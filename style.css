@@ -273,4 +273,8 @@ iframe {
   #weatherInput {
     width: 150px;
   }
+  .logoPara {
+    color: #fff;
+    font-size: 1.5rem;
+  }
 }
