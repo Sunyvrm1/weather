@@ -176,5 +176,14 @@ weatherBtn.addEventListener("click", () => {
     apiCalling1();
   }
 });
+weatherBtn.addEventListener("keypress", () => {
+  const weatherInput = document.getElementById("weatherInput").value;
+  const weatherInput1 = document.getElementById("weatherInput");
+  if (weatherInput == "") {
+    city_name.innerHTML = "Enter city name";
+  } else {
+    apiCalling1();
+  }
+});
 
 // fgfgjfgjghdskfskdjf
