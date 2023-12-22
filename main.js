@@ -89,12 +89,14 @@ fetch(
       });
   });
 
-//click event
-
 const weatherBtn = document.getElementById("weatherBtn");
-weatherBtn.addEventListener("click", () => {
+const weatherInput1 = document.getElementById("weatherInput");
+
+// function Define
+
+function fetchAndDisplay() {
   const weatherInput = document.getElementById("weatherInput").value;
-  const weatherInput1 = document.getElementById("weatherInput");
+
   if (weatherInput == "") {
     city_name.innerHTML = "Enter city name";
   } else {
@@ -167,5 +169,17 @@ weatherBtn.addEventListener("click", () => {
           });
         weatherInput1.value = "";
       });
+  }
+}
+
+//click event
+
+weatherBtn.addEventListener("click", () => {
+  fetchAndDisplay();
+});
+
+weatherInput1.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    fetchAndDisplay();
   }
 });
