@@ -268,3 +268,9 @@ iframe {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 600px) {
+  .input {
+    width: 40%;
+  }
+}
