@@ -168,5 +168,3 @@ weatherBtn.addEventListener("click", () => {
       });
   }
 });
-
-// fgfgjfgjghdskfskdjf
