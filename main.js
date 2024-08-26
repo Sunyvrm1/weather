@@ -57,6 +57,22 @@ fetch(
     sunset.innerHTML = unixToTime(data.sys.sunset);
     weather_des.innerHTML = data.weather[0].main;
     weather_img.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+    //bg change
+    const body = document.querySelector("body");
+    if (data.weather[0].main === "Clouds") {
+      body.style.backgroundImage = 'url("/cloud.jpg")';
+    } else if (data.weather[0].main === "Clear") {
+      body.style.backgroundImage = 'url("/sunny.jpg")';
+    } else if (data.weather[0].main === "Snow") {
+      body.style.backgroundImage = 'url("/snow.jpg")';
+      document.querySelector("h1").style.color = "white";
+    } else if (data.weather[0].main === "Rain") {
+      body.style.backgroundImage = 'url("/rain.jpg")';
+    } else {
+      body.style.backgroundImage = 'url("/smoke.jpg")';
+    }
+    body.style.backgroundSize = "cover";
+    body.style.backgroundAttachment = "fixed";
 
     const lat = data.coord.lat;
     const lon = data.coord.lon;
