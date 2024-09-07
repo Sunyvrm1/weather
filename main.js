@@ -1,8 +1,3 @@
-// Function to convert temperature from Kelvin to Celsius
-function kelvinToCelsius(kelvin) {
-  return (kelvin - 273.15).toFixed(0);
-}
-
 // Function to convert temperature from UNIX to Local time
 function unixToTime(unixTimestamp) {
   const milliseconds = unixTimestamp * 1000;
@@ -14,12 +9,7 @@ function unixToTime(unixTimestamp) {
   });
 }
 
-// Function to convert temperature from m/s to km/h
-function metretokilometer(meter) {
-  return (meter * 3.6).toFixed(1);
-}
-
-//Vairable
+// Variables
 const city_name = document.getElementById("city_name");
 const temp = document.getElementById("temp");
 const temp_max = document.getElementById("temp_max");
@@ -35,161 +25,95 @@ const Visiblity = document.getElementById("Visiblity");
 const weather_des = document.getElementById("weather_des");
 const weather_img = document.querySelector(".weather_image img");
 
-//By default
+// Function to update weather display
+function updateWeatherDisplay(data) {
+  city_name.innerHTML = data.name;
+  temp.innerHTML = data.main.temp.toFixed(0);
+  temp_max.innerHTML = data.main.temp_max.toFixed(0);
+  temp_min.innerHTML = data.main.temp_min.toFixed(0);
+  temp_feel.innerHTML = data.main.feels_like.toFixed(0);
+  humdity.innerHTML = data.main.humidity;
+  wind.innerHTML = data.wind.speed;
+  pressure.innerHTML = data.main.pressure;
+  Cloudiness.innerHTML = data.clouds.all;
+  Visiblity.innerHTML = data.visibility / 1000;
+  sunrise.innerHTML = unixToTime(data.sys.sunrise);
+  sunset.innerHTML = unixToTime(data.sys.sunset);
+  weather_des.innerHTML = data.weather[0].main;
+  weather_img.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
 
-fetch(
-  `https://api.openweathermap.org/data/2.5/weather?q=delhi&appid=beea3435003dac5511b106b3cd2c6350`
-)
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
-    city_name.innerHTML = data.name;
-    temp.innerHTML = kelvinToCelsius(data.main.temp);
-    temp_max.innerHTML = kelvinToCelsius(data.main.temp_max);
-    temp_min.innerHTML = kelvinToCelsius(data.main.temp_min);
-    temp_feel.innerHTML = kelvinToCelsius(data.main.feels_like);
-    humdity.innerHTML = data.main.humidity;
-    wind.innerHTML = metretokilometer(data.wind.speed);
-    pressure.innerHTML = data.main.pressure;
-    Cloudiness.innerHTML = data.clouds.all;
-    Visiblity.innerHTML = data.visibility / 1000;
-    sunrise.innerHTML = unixToTime(data.sys.sunrise);
-    sunset.innerHTML = unixToTime(data.sys.sunset);
-    weather_des.innerHTML = data.weather[0].main;
-    weather_img.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
-    //bg change
-    const body = document.querySelector("body");
-    if (data.weather[0].main === "Clouds") {
+  // Background change
+  const body = document.querySelector("body");
+  switch (data.weather[0].main) {
+    case "Clouds":
       body.style.backgroundImage = 'url("/cloud.jpg")';
-    } else if (data.weather[0].main === "Clear") {
+      break;
+    case "Clear":
       body.style.backgroundImage = 'url("/sunny.jpg")';
-    } else if (data.weather[0].main === "Snow") {
+      break;
+    case "Snow":
       body.style.backgroundImage = 'url("/snow.jpg")';
-      document.querySelector("h1").style.color = "white";
-    } else if (data.weather[0].main === "Rain") {
+      break;
+    case "Rain":
       body.style.backgroundImage = 'url("/rain.jpg")';
-    } else {
+      break;
+    default:
       body.style.backgroundImage = 'url("/smoke.jpg")';
-    }
-    body.style.backgroundSize = "cover";
-    body.style.backgroundAttachment = "fixed";
+  }
+  body.style.backgroundSize = "cover";
+  body.style.backgroundAttachment = "fixed";
+}
 
-    const lat = data.coord.lat;
-    const lon = data.coord.lon;
-    const aqi_Condition = document.getElementById("aqi_Condition");
-    const aq_level = document.getElementById("aq_level");
-    fetch(
-      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=beea3435003dac5511b106b3cd2c6350`
-    )
-      .then((res) => res.json())
-      .then((data1) => {
-        console.log(data1);
-        console.log(data1.list[0].main.aqi);
-        aqi_Index.innerHTML = data1.list[0].main.aqi;
-        if (aqi_Index.innerHTML == 1) {
-          aqi_Condition.innerHTML = "Good";
-          aq_level.style.left = "5%";
-        } else if (aqi_Index.innerHTML == 2) {
-          aqi_Condition.innerHTML = "Fair";
-          aq_level.style.left = "30%";
-        } else if (aqi_Index.innerHTML == 3) {
-          aqi_Condition.innerHTML = "Moderate";
-          aq_level.style.left = "50%";
-        } else if (aqi_Index.innerHTML == 4) {
-          aqi_Condition.innerHTML = "Poor";
-          aq_level.style.left = "70%";
-        } else {
-          aqi_Condition.innerHTML = "Very Poor";
-          aq_level.style.left = "90%";
-        }
-      });
-  });
+// Function to update air quality display
+function updateAirQualityDisplay(lat, lon) {
+  const aqi_Condition = document.getElementById("aqi_Condition");
+  const aq_level = document.getElementById("aq_level");
+
+  fetch(
+    `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=beea3435003dac5511b106b3cd2c6350`
+  )
+    .then((res) => res.json())
+    .then((data1) => {
+      const aqi = data1.list[0].main.aqi;
+      const aqiLevels = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+      const leftPositions = ["5%", "30%", "50%", "70%", "90%"];
+
+      aqi_Condition.innerHTML = aqiLevels[aqi - 1];
+      aq_level.style.left = leftPositions[aqi - 1];
+    });
+}
+
+// Function to fetch and display weather data
+function fetchWeatherData(city) {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city}&appid=beea3435003dac5511b106b3cd2c6350`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      updateWeatherDisplay(data);
+      updateAirQualityDisplay(data.coord.lat, data.coord.lon);
+    });
+}
+
+// Default city weather
+fetchWeatherData("delhi");
 
 const weatherBtn = document.getElementById("weatherBtn");
 const weatherInput1 = document.getElementById("weatherInput");
 
-// function Define
-
+// Function to handle user input and fetch weather
 function fetchAndDisplay() {
-  const weatherInput = document.getElementById("weatherInput").value;
+  const weatherInput = weatherInput1.value;
 
-  if (weatherInput == "") {
+  if (weatherInput === "") {
     city_name.innerHTML = "Enter city name";
   } else {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${weatherInput}&appid=beea3435003dac5511b106b3cd2c6350`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        city_name.innerHTML = data.name;
-        temp.innerHTML = kelvinToCelsius(data.main.temp);
-        temp_max.innerHTML = kelvinToCelsius(data.main.temp_max);
-        temp_min.innerHTML = kelvinToCelsius(data.main.temp_min);
-        temp_feel.innerHTML = kelvinToCelsius(data.main.feels_like);
-        humdity.innerHTML = data.main.humidity;
-        wind.innerHTML = metretokilometer(data.wind.speed);
-        pressure.innerHTML = data.main.pressure;
-        Cloudiness.innerHTML = data.clouds.all;
-        Visiblity.innerHTML = data.visibility / 1000;
-        sunrise.innerHTML = unixToTime(data.sys.sunrise);
-        sunset.innerHTML = unixToTime(data.sys.sunset);
-        weather_des.innerHTML = data.weather[0].main;
-        weather_img.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
-
-        //bg change
-        const body = document.querySelector("body");
-        if (data.weather[0].main === "Clouds") {
-          body.style.backgroundImage = 'url("/cloud.jpg")';
-        } else if (data.weather[0].main === "Clear") {
-          body.style.backgroundImage = 'url("/sunny.jpg")';
-        } else if (data.weather[0].main === "Snow") {
-          body.style.backgroundImage = 'url("/snow.jpg")';
-          document.querySelector("h1").style.color = "white";
-        } else if (data.weather[0].main === "Rain") {
-          body.style.backgroundImage = 'url("/rain.jpg")';
-        } else {
-          body.style.backgroundImage = 'url("/smoke.jpg")';
-        }
-        body.style.backgroundSize = "cover";
-        body.style.backgroundAttachment = "fixed";
-
-        const lat = data.coord.lat;
-        const lon = data.coord.lon;
-        const aqi_Condition = document.getElementById("aqi_Condition");
-        const aq_level = document.getElementById("aq_level");
-        fetch(
-          `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=beea3435003dac5511b106b3cd2c6350`
-        )
-          .then((res) => res.json())
-          .then((data1) => {
-            console.log(data1);
-            console.log(data1.list[0].main.aqi);
-            aqi_Index.innerHTML = data1.list[0].main.aqi;
-            if (aqi_Index.innerHTML == 1) {
-              aqi_Condition.innerHTML = "Good";
-              aq_level.style.left = "5%";
-            } else if (aqi_Index.innerHTML == 2) {
-              aqi_Condition.innerHTML = "Fair";
-              aq_level.style.left = "30%";
-            } else if (aqi_Index.innerHTML == 3) {
-              aqi_Condition.innerHTML = "Moderate";
-              aq_level.style.left = "50%";
-            } else if (aqi_Index.innerHTML == 4) {
-              aqi_Condition.innerHTML = "Poor";
-              aq_level.style.left = "70%";
-            } else {
-              aqi_Condition.innerHTML = "Very Poor";
-              aq_level.style.left = "90%";
-            }
-          });
-        weatherInput1.value = "";
-      });
+    fetchWeatherData(weatherInput);
+    weatherInput1.value = "";
   }
 }
 
-//click event
-
+// Event listeners
 weatherBtn.addEventListener("click", () => {
   fetchAndDisplay();
 });
